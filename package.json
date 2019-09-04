@@ -4,7 +4,10 @@
   "description": "We first test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    
+    "start": "nodemon ./src/server.js --watch ./src",
+    "test": "nyc mocha ./test/**/*.test.js --require ./test/test-helper.js",
+    "test:watch": "nodemon --watch ./test --exec yarn test"
   },
   "repository": {
     "type": "git",
