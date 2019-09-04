@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./src/server.js --watch ./src",
-    "test": "nyc mocha ./test/**/*.test.js --require ./test/test-helper.js",
+    "test": "nyc --reporter=html --reporter=text mocha ./test/**/*.test.js --require ./test/test-helper.js --exit",
     "test:watch": "nodemon --watch ./test --exec yarn test"
   },
   "repository": {
