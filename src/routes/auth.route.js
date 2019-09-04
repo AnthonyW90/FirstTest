@@ -24,7 +24,7 @@ const sanitizeUser = (user) => ({
   password: undefined,
 })
 
-controller.post("/sign-up", [...signUpValidators], async (req, res) => {
+controller.post("/signup", [...signUpValidators], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).send({ errors: errors.array() });
