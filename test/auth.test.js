@@ -11,7 +11,7 @@ const signUp = async (username = "username", password = "password123", passwordC
     .send({
         username: username,
         password: password,
-        passwordCheck: password
+        passwordCheck: passwordCheck
     })
 
     return response
