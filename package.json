@@ -1,0 +1,29 @@
+{
+  "name": "firsttest",
+  "version": "1.0.0",
+  "description": "We first test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnthonyW90/FirstTest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnthonyW90/FirstTest/issues"
+  },
+  "homepage": "https://github.com/AnthonyW90/FirstTest#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-router": "^0.1.15",
+    "express-validator": "^6.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.12",
+    "morgan": "^1.9.1"
+  }
+}
