@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const AuthController = require("./controllers/auth");
-const BoardController = require("./controllers/board");
-const PostController = require("./controllers/post");
-
 
 const app = express();
 
@@ -14,9 +10,6 @@ app.use(cors());
 app.use(express.json());
 if(process.env.ENV !== "test") app.use(morgan("tiny"));
 
-// app.use("/auth", AuthController);
-// app.use("/board", BoardController);
-// app.use("/post", PostController);
 
 const connectDatabase = async (databaseName) => {
   try {

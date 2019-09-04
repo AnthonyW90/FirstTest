@@ -18,7 +18,7 @@ const signUp = async (username = "username", password = "password123", passwordC
 }
 
 describe("auth.route.js", () => {
-    it("POST /auth/signup", () => {
+    it("POST /auth/signup", async () => {
         const response = await signUp()
 
         expect(response.status).to.eq(200)
