@@ -29,7 +29,7 @@ controller.post("/signup", [...signUpValidators], async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(422).send({ errors: errors.array() });
   }
-
+  
   const { username, password, passwordCheck } = req.body;
 
   const userFound = await User.findOne({username});
