@@ -46,7 +46,8 @@ describe("book.route.js", () => {
         .request(app)
         .post("/books/")
         .send({
-            
+            booktitle: "Some title",
+            author: "Some old guy"
         })
         .set("Authorization", `Bearer ${user.body.token}`)
 
