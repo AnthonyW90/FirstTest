@@ -3,6 +3,8 @@ const { check, validationResult } = require("express-validator");
 
 const jwtMiddleware = require("../helpers/jwt-middleware");
 const User = require("../models/User");
+const Book = require("../models/Book");
+
 
 const router = AsyncRouter();
 const createValidators = [
