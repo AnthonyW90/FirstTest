@@ -8,12 +8,15 @@ describe("user.test.js", () => {
     it("GET /user/:_id", async () => {
         const user = await login()
         const token = user.body.token
-        const id = user.body.id
 
         const res = await chai
         .request(app)
         .get(`/user`)
+<<<<<<< HEAD
 
+=======
+        .set("Authorization", `Bearer ${token}`)
+>>>>>>> c33ccb311d9983e735aa43f587a6645299440842
 
         expect(res.status).to.eq(200)
     })
