@@ -14,7 +14,7 @@ const userSchema = Schema({
     },
     admin: {
         type: Boolean,
-        defualt: false
+        default: false
     }
 }, {
         timestamps: true,
