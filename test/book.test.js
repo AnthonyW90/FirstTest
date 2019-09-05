@@ -64,4 +64,49 @@ describe("book.route.js", () => {
 
         expect(res.status).to.eq(200)
     })
+
+    it("POST /books/ Should not allow a non-admin user to add a book", async () => {
+        const user = await login()
+        
+        const res = await chai
+        .request(app)
+        .post("/books/")
+        .send({
+            booktitle: "Some title",
+            author: "Some old guy"
+        })
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.gte(400).lt(500)
+    })
+
+    it("PATCH /books/ Should allow an admin user to update a book", async () => {
+        const user = await login("admin")
+        
+        const res = await chai
+        .request(app)
+        .patch("/books/")
+        .send({
+            booktitle: "Test title",
+            author: "Test author"
+        })
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.eq(200)
+    })
+
+    it("PATCH /books/ Should not allow a non-admin user to update a book", async () => {
+        const user = await login()
+        
+        const res = await chai
+        .request(app)
+        .patch("/books/")
+        .send({
+            booktitle: "Test title",
+            author: "Test author"
+        })
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.gte(400).lt(500)
+    })
 })
