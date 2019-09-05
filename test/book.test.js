@@ -50,7 +50,7 @@ describe("book.route.js", () => {
     })
 
     it("POST /books/ Should allow an admin user to add a book", async () => {
-        await signUp("admin", "password123", "password123", true)
+        const sign = await signUp("admin","password123","password123", true)
         const user = await login("admin")
         
         const res = await chai
@@ -61,7 +61,7 @@ describe("book.route.js", () => {
             author: "Some old guy"
         })
         .set("Authorization", `Bearer ${user.body.token}`)
-
+        console.log(sign.body.admin)
         expect(res.status).to.eq(200)
     })
 

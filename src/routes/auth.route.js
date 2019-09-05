@@ -30,7 +30,7 @@ controller.post("/signup", [...signUpValidators], async (req, res) => {
     return res.status(422).send({ errors: errors.array() });
   }
   
-  const { username, password, passwordCheck } = req.body;
+  const { username, password, passwordCheck, admin } = req.body;
 
   const userFound = await User.findOne({username});
 
@@ -45,6 +45,7 @@ controller.post("/signup", [...signUpValidators], async (req, res) => {
   const user = new User();
   user.username = username;
   user.password = bcrypt.hashSync(password, 4);
+  user.admin = admin || false;
   await user.save();
 
   res.send(sanitizeUser(user));

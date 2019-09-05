@@ -18,7 +18,6 @@ router.get("/", async (req, res) => {
 router.get("/all", async (req, res) => {
   const book = await Book.find();
 
-  console.log(book)
   res.send(book);
 });
 
@@ -28,8 +27,6 @@ router.post("/", jwtMiddleware, async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(422).send({ errors: errors.array() });
   }
-console.log(req.user)
-console.log(req.user.admin)
   if(!req.user.admin ) return res.sendStatus(401);
 
   const { booktitle, author } = req.body;
