@@ -15,9 +15,9 @@ const updateValidators = [
 
 // List
 router.get("/", async (req, res) => {
-  const boards = await Board.find();
+  const boards = await Book.find();
 
-  res.send(boards);
+  res.send(book);
 });
 
 // Create
@@ -27,49 +27,49 @@ router.post("/", [...createValidators, jwtMiddleware], async (req, res) => {
     return res.status(422).send({ errors: errors.array() });
   }
 
-  const { name, user } = req.body;
+  const { booktitle, author } = req.body;
 
-  const board = new Board({ name, user });
-  await board.save();
+  const book = new Book({ booktitle, author });
+  await book.save();
 
-  res.status(201).send(board);
+  res.status(201).send(book);
 });
 
 // read
 router.get("/:_id", async (req, res) => {
   const { _id } = req.params;
-  const board = await Board.findOne({ _id }).populate(["posts", "user"]);
+  const book = await Book.findOne({ _id }).populate(["book", "user"]);
 
-  if(!board) return res.sendStatus(404);
+  if(!book) return res.sendStatus(404);
 
-  res.send(board);
+  res.send(book);
 });
 
 // update 
 router.patch("/:_id", [...updateValidators, jwtMiddleware], async (req, res) => {
   const { _id } = req.params;
-  const board = await Board.findOne({ _id });
+  const book = await Book.findOne({ _id });
 
-  if(!board) return res.sendStatus(404);
-  if(!req.user._id.equals(board.user._id)) return res.sendStatus(401);
+  if(!book) return res.sendStatus(404);
+  if(!req.user._id.equals(book.user._id)) return res.sendStatus(401);
 
-  board.name = req.body.name;
-  await board.save();
+  book.name = req.body.name;
+  await book.save();
 
-  res.send(board);
+  res.send(book);
 });
 
 // delete
 router.delete("/:_id", jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
-  const board = await Board.findOne({ _id });
+  const book= await Book.findOne({ _id });
   
-  if(!board) return res.sendStatus(404);
-  if(!req.user._id.equals(board.user._id)) return res.sendStatus(401);
+  if(!book) return res.sendStatus(404);
+  if(!req.user._id.equals(book.user._id)) return res.sendStatus(401);
 
-  await board.remove();
+  await book.remove();
 
-  res.send(board);
+  res.send(book);
 });
 
 module.exports = router;
