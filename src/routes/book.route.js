@@ -5,13 +5,6 @@ const jwtMiddleware = require("../helpers/jwt-middleware");
 const Book = require("../models/Book");
 
 const router = AsyncRouter();
-const createValidators = [
-  check("book").exists(),
-  check("user").exists()
-];
-const updateValidators = [
-  check("name").exists(),
-];
 
 
 // List just the / lists unchecked books
@@ -29,7 +22,7 @@ router.get("/all", async (req, res) => {
 });
 
 // Create
-router.post("/", [...createValidators, jwtMiddleware], async (req, res) => {
+router.post("/", jwtMiddleware, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).send({ errors: errors.array() });
@@ -40,7 +33,7 @@ router.post("/", [...createValidators, jwtMiddleware], async (req, res) => {
   const book = new Book({ booktitle, author });
   await book.save();
 
-  res.status(201).send(book);
+  res.status(200).send(book);
 });
 
 // read
@@ -54,7 +47,7 @@ router.get("/", async (req, res) => {
 });
 
 // update 
-router.patch("/", [...updateValidators, jwtMiddleware], async (req, res) => {
+router.patch("/",  jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
   const book = await Book.findOne({ _id });
 
