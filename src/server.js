@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
 const authroute = require("./routes/auth.route")
+const userroute = require("./routes/user.route")
 
 const app = express();
 app.use(cors());
@@ -10,6 +11,7 @@ app.use(express.json());
 if(process.env.ENV !== "test") app.use(morgan("tiny"));
 
 app.use("/auth", authroute);
+app.use("/user", userroute);
 
 
 const connectDatabase = async (databaseName) => {

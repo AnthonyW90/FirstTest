@@ -2,7 +2,7 @@ const { AsyncRouter } = require("express-async-router");
 const { check, validationResult } = require("express-validator");
 
 const jwtMiddleware = require("../helpers/jwt-middleware");
-const Post = require("../models/Post");
+const User = require("../models/User");
 
 const router = AsyncRouter();
 const createValidators = [
@@ -16,7 +16,7 @@ const updateValidators = [
 
 // List
 router.get("/", jwtMiddleware,  async (req, res) => {
-  const user = await Post.find();
+  const user = await User.findone({_id: req.user._id});
 
   res.send(user);
 });

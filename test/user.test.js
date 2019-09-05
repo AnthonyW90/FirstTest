@@ -11,7 +11,7 @@ describe("user.test.js", () => {
 
         const res = await chai
         .request(app)
-        .get(`/user`)
+        .get(`/auth/profile`)
         .set("Authorization", `Bearer ${token}`)
 
         expect(res.status).to.eq(200)
