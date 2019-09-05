@@ -2,7 +2,7 @@ const { AsyncRouter } = require("express-async-router");
 const { check, validationResult } = require("express-validator");
 
 const jwtMiddleware = require("../helpers/jwt-middleware");
-const Board = require("../models/Book");
+const Book = require("../models/Book");
 
 const router = AsyncRouter();
 const createValidators = [
@@ -13,9 +13,10 @@ const updateValidators = [
   check("name").exists(),
 ];
 
+
 // List
 router.get("/", async (req, res) => {
-  const boards = await Book.find();
+  const book = await Book.find();
 
   res.send(book);
 });

@@ -16,7 +16,7 @@ const updateValidators = [
 
 // List
 router.get("/", jwtMiddleware,  async (req, res) => {
-  const user = await User.findone({_id: req.user._id});
+  const user = await User.findone({_id: req.user._id}).populate("Book");
 
   res.send(user);
 });
