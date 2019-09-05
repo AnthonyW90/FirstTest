@@ -3,6 +3,7 @@ const { expect } = chai
 const dummyAPI = require("./dummy-api")
 
 const { app } = require("../src/server")
+const { signup, login } = require("./auth.test")
 
 const addBook = async (title, author) => {
     const res = await chai
@@ -37,5 +38,18 @@ describe("book.route.js", () => {
         expect(res.status).to.eq(200)
     })
 
-    it("POST /books/ Should allow an admin user to add a book")
+    it("POST /books/ Should allow an admin user to add a book", async () => {
+        await signup("admin", "password123", "password123", true)
+        const user = await login("admin")
+        
+        const res = await chai
+        .request(app)
+        .post("/books/")
+        .send({
+            
+        })
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.eq(200)
+    })
 })
