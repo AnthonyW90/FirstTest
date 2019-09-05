@@ -1,42 +1,42 @@
 MODELS:
 -------
  - User:
-    username
-    password
-    checkedoutbooks
+   * username
+   * password
+   * checkedoutbooks
  - Book:
-    Title
-    Author
-    CheckedOut
-    User
+   * Title
+   * Author
+   * CheckedOut
+   * User
 
 
 ROUTES:
 -------
  - Auth:
-    login
-    signup
+   * login
+   * signup
  - User:
-    profile
+   * profile
  - Book:
-    list
-    create
-    read
-    update
-    delete
+   * list
+   * create
+   * read
+   * update
+   * delete
 
 TODO:
 -----
-[ ]Authentication
-  [ ] Passes Create
-  [ ] Passes Read
-  [ ] Passes Update
-  [ ] Passes Delete
+- [ ] Authentication
+  - [ ] Passes Create
+  - [ ] Passes Read
+  - [ ] Passes Update
+  - [ ] Passes Delete
 
-[ ]Books
-  [ ] Passes Create
-  [ ] Passes Read
-  [ ] Passes Update
-  [ ] Passes Delete
-  [ ] Passes List
+- [ ] Books
+  - [ ] Passes Create
+  - [ ] Passes Read
+  - [ ] Passes Update
+  - [ ] Passes Delete
+  - [ ] Passes List
   
