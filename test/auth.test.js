@@ -82,3 +82,8 @@ describe("auth.route.js", () => {
         expect(response.status).to.eq(422)
     })
 })
+
+module.exports = {
+    signUp,
+    login
+}
