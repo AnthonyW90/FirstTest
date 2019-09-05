@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types
 
 
 
@@ -12,15 +13,16 @@ const BookSchema = Schema({
     },
     author: {
         type: String, 
-        unique: true
+        unique: false
     },
     checkedout: {
-        type: Boolean 
+        type: Boolean,
+        default: false
         
     },
     user:{
         type: ObjectId,
-        ref: "User",
+        ref: "user",
 
     }
 })

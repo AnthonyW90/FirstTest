@@ -9,10 +9,14 @@ const userSchema = Schema({
         unique: true, 
     },
     password: {
-        type: String, 
-        unique: true
-    },
-
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true,
+    toJSON: {
+        virtuals: true
+    }
 })
 
 userSchema.virtual("Book", {
