@@ -18,6 +18,7 @@ router.get("/", async (req, res) => {
 router.get("/all", async (req, res) => {
   const book = await Book.find();
 
+  console.log(book)
   res.send(book);
 });
 

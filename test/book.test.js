@@ -5,29 +5,39 @@ const dummyAPI = require("./dummy-api")
 const { app } = require("../src/server")
 const { signUp, login } = require("./auth.test")
 
-const addBook = async (title, author) => {
+const addBook = async (title, author, token) => {
     const res = await chai
     .request(app)
     .post("/books/")
+    .set("Authorization", `Bearer ${token}`)
     .send({
-        title: title,
+        booktitle: title,
         author: author
     })
+
+    return res
 }
 
-// before(() => {
-//     dummyAPI.forEach(async (book) => {
-//         await addBook(book.title, book.author)
-//     })
-// })
 
 describe("book.route.js", () => {
+    before(async () => {
+        await signUp("superAdmin", "password123", "password123", true)
+        const user = await login("superAdmin")
+        const token = user.body.token
+
+        for (book in dummyAPI) {
+            await addBook(dummyAPI[book].title, dummyAPI[book].author, token)
+        }
+
+    })
+
     it("GET /books/all Should display list of all books", async () => {
         const res = await chai
         .request(app)
         .get("/books/all")
 
         expect(res.status).to.eq(200)
+        expect(res.body).to.be.lengthOf(7)
     })
 
     it("GET /books/ Should display list of all non checked out books", async () => {
@@ -36,6 +46,7 @@ describe("book.route.js", () => {
         .get("/books/")
 
         expect(res.status).to.eq(200)
+        expect(res.body).to.be.lengthOf(6)
     })
 
     it("POST /books/ Should allow an admin user to add a book", async () => {

@@ -25,7 +25,7 @@ const dumbAPI = [{
 },{
     title: "AHHHHH",
     author: "Send Help",
-    checkedOut: false
+    checkedOut: true
 }]
 
 module.exports = dumbAPI
