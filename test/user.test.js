@@ -12,7 +12,8 @@ describe("user.test.js", () => {
 
         const res = await chai
         .request(app)
-        .get(`/user/${id}`)
+        .get(`/user`)
+
 
         expect(res.status).to.eq(200)
     })

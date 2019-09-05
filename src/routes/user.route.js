@@ -15,8 +15,8 @@ const updateValidators = [
 ];
 
 // List
-router.get("/", async (req, res) => {
-  const posts = await Post.find();
+router.get("/", jwtMiddleware,  async (req, res) => {
+  const user = await Post.find();
 
   res.send(user);
 });
