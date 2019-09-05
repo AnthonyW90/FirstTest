@@ -30,6 +30,7 @@ router.post("/", jwtMiddleware, async (req, res) => {
   }
 console.log(req.user)
 console.log(req.user.admin)
+
   if(!req.user.admin ) return res.sendStatus(401);
 
   const { booktitle, author } = req.body;
@@ -56,7 +57,8 @@ router.patch("/",  jwtMiddleware, async (req, res) => {
   const book = await Book.findOne({ _id });
 
   if(!book) return res.sendStatus(404);
-  if(!req.user._id.equals(book.user._id)) return res.sendStatus(401);
+  if(!req.user.admin ) return res.sendStatus(401);
+
 
   book.name = req.body.name;
   await book.save();
