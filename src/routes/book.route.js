@@ -14,8 +14,15 @@ const updateValidators = [
 ];
 
 
-// List
+// List just the / lists unchecked books
 router.get("/", async (req, res) => {
+  const book = await Book.find();
+
+  res.send(book);
+});
+
+// List all books 
+router.get("/all", async (req, res) => {
   const book = await Book.find();
 
   res.send(book);

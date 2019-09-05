@@ -14,7 +14,7 @@ if(process.env.ENV !== "test") app.use(morgan("tiny"));
 
 app.use("/auth", authroute);
 app.use("/user", userroute);
-app.use("/book", bookroute);
+app.use("/books", bookroute);
 
 
 const connectDatabase = async (databaseName) => {
