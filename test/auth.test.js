@@ -5,14 +5,15 @@ const jwt = require("jsonwebtoken")
 
 const { app } = require("../src/server")
 
-const signUp = async (username = "username", password = "password123", passwordCheck = "password123") => {
+const signUp = async (username = "username", password = "password123", passwordCheck = "password123", admin = false) => {
     const response = await chai
     .request(app)
     .post('/auth/signup')
     .send({
         username: username,
         password: password,
-        passwordCheck: passwordCheck
+        passwordCheck: passwordCheck,
+        admin: admin
     })
 
     return response
