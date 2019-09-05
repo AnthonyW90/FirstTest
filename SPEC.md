@@ -1,5 +1,5 @@
 MODELS:
-=======
+-------
   User:
     username
     password
@@ -12,7 +12,7 @@ MODELS:
 
 
 ROUTES:
-========
+-------
   Auth:
     login
     signup
@@ -26,7 +26,7 @@ ROUTES:
     delete
 
 TODO:
-======
+-----
 [ ]Authentication
   [ ] Passes Create
   [ ] Passes Read
