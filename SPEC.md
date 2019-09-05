@@ -1,10 +1,10 @@
 MODELS:
 -------
-  User:
+ - User:
     username
     password
     checkedoutbooks
-  Book:
+ - Book:
     Title
     Author
     CheckedOut
@@ -13,12 +13,12 @@ MODELS:
 
 ROUTES:
 -------
-  Auth:
+ - Auth:
     login
     signup
-  User:
+ - User:
     profile
-  Book:
+ - Book:
     list
     create
     read
