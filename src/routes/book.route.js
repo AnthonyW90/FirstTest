@@ -37,7 +37,7 @@ router.post("/", [...createValidators, jwtMiddleware], async (req, res) => {
 });
 
 // read
-router.get("/:_id", async (req, res) => {
+router.get("/", async (req, res) => {
   const { _id } = req.params;
   const book = await Book.findOne({ _id }).populate(["book", "user"]);
 
@@ -47,7 +47,7 @@ router.get("/:_id", async (req, res) => {
 });
 
 // update 
-router.patch("/:_id", [...updateValidators, jwtMiddleware], async (req, res) => {
+router.patch("/", [...updateValidators, jwtMiddleware], async (req, res) => {
   const { _id } = req.params;
   const book = await Book.findOne({ _id });
 
@@ -61,7 +61,7 @@ router.patch("/:_id", [...updateValidators, jwtMiddleware], async (req, res) => 
 });
 
 // delete
-router.delete("/:_id", jwtMiddleware, async (req, res) => {
+router.delete("/", jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
   const book= await Book.findOne({ _id });
   
