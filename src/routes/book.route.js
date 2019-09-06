@@ -36,7 +36,7 @@ router.post("/", jwtMiddleware, async (req, res) => {
   if(!req.user.admin ) return res.sendStatus(401);
 
   const { booktitle, author, checkedout } = req.body;
-  console.log(req.body)
+  
   const book = new Book({ booktitle, author, checkedout });
   await book.save();
 
@@ -54,7 +54,7 @@ router.get("/", async (req, res) => {
 });
 
 // update 
-router.patch("/",  jwtMiddleware, async (req, res) => {
+router.patch("/:_id",  jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
   const book = await Book.findOne({ _id });
 
@@ -62,7 +62,9 @@ router.patch("/",  jwtMiddleware, async (req, res) => {
   if(!req.user.admin ) return res.sendStatus(401);
 
 
-  book.name = req.body.name;
+  book.booktitle = req.body.booktitle;
+  book.author = req.body.author
+  book.checkedout = req.body.checkedout
   await book.save();
 
   res.send(book);
