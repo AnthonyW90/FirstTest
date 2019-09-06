@@ -9,9 +9,16 @@ const router = AsyncRouter();
 
 // List just the / lists unchecked books
 router.get("/", async (req, res) => {
-  const book = await Book.find();
+  const books = await Book.find();
+  const available = []
 
-  res.send(book);
+  for(book in books) {
+    if(!books[book].checkedout){
+      available.push(books[book])
+    }
+  }
+  console.log(available)
+  res.send(available);
 });
 
 // List all books 
@@ -29,9 +36,9 @@ router.post("/", jwtMiddleware, async (req, res) => {
   }
   if(!req.user.admin ) return res.sendStatus(401);
 
-  const { booktitle, author } = req.body;
-
-  const book = new Book({ booktitle, author });
+  const { booktitle, author, checkedout } = req.body;
+  console.log(req.body)
+  const book = new Book({ booktitle, author, checkedout });
   await book.save();
 
   res.status(200).send(book);

@@ -1,31 +1,31 @@
 const dumbAPI = [{
     title: "Cool book title",
     author: "Some old guy",
-    checkedOut: false
+    checkedout: false
 },{
     title: "Popular Book Name",
     author: "British lady",
-    checkedOut: false
+    checkedout: false
 },{
     title: "Linear Algebra for Dummies",
     author: "Professor X",
-    checkedOut: false
+    checkedout: false
 },{
     title: "Food and you",
     author: "Charles Lastname",
-    checkedOut: false
+    checkedout: false
 },{
     title: "Yes",
     author: "Wong No",
-    checkedOut: false
+    checkedout: false
 },{
     title: "Adventure to some far away land",
     author: "James Edgar",
-    checkedOut: false
+    checkedout: false
 },{
     title: "AHHHHH",
     author: "Send Help",
-    checkedOut: true
+    checkedout: true
 }]
 
 module.exports = dumbAPI
