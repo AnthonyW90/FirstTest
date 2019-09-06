@@ -124,7 +124,7 @@ describe("book.route.js", () => {
         expect(res.status).to.eq(401)
     })
 
-    it("DELETE /books/:_id Should not allow an admin user to delete a book", async () => {
+    it("DELETE /books/:_id Should allow an admin user to delete a book", async () => {
         const user = await login("admin")
         const book = await getBook()
         

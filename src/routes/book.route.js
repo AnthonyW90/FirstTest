@@ -72,12 +72,12 @@ router.patch("/:_id",  jwtMiddleware, async (req, res) => {
 });
 
 // delete
-router.delete("/", jwtMiddleware, async (req, res) => {
+router.delete("/:_id", jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
   const book= await Book.findOne({ _id });
   
   if(!book) return res.sendStatus(404);
-  if(!req.user._id.equals(book.user._id)) return res.sendStatus(401);
+  if(!req.user.admin) return res.sendStatus(401);
 
   await book.remove();
 
