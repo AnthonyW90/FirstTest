@@ -27,16 +27,16 @@ ROUTES:
 
 TODO:
 -----
-- [ ] Authentication
-  - [ ] Passes Create
-  - [ ] Passes Read
-  - [ ] Passes Update
-  - [ ] Passes Delete
+- [x] Authentication
+  - [x] Passes Create
+  - [x] Passes Read
+  - [x] Passes Update
+  - [x] Passes Delete
 
-- [ ] Books
-  - [ ] Passes Create
-  - [ ] Passes Read
-  - [ ] Passes Update
-  - [ ] Passes Delete
-  - [ ] Passes List
+- [x] Books
+  - [x] Passes Create
+  - [x] Passes Read
+  - [x] Passes Update
+  - [x] Passes Delete
+  - [x] Passes List
   
