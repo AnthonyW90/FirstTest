@@ -19,6 +19,13 @@ const addBook = async (title, author, checkedout, token) => {
     return res
 }
 
+const getBook = async () => {
+    const res = await chai
+        .request(app)
+        .get("/books/")
+    return res.body[0]
+}
+
 
 describe("book.route.js", () => {
     before(async () => {
@@ -80,19 +87,24 @@ describe("book.route.js", () => {
         expect(res.status).to.gte(400).lt(500)
     })
 
-    it("PATCH /books/ Should allow an admin user to update a book", async () => {
+    it("PATCH /books/:_id Should allow an admin user to update a book", async () => {
         const user = await login("admin")
-        
+        const book = await getBook()
+
         const res = await chai
         .request(app)
-        .patch("/books/")
+        .patch(`/books/${book._id}`)
         .send({
             booktitle: "Test title",
-            author: "Test author"
+            author: "Test author",
+            checkedout: false
         })
         .set("Authorization", `Bearer ${user.body.token}`)
 
         expect(res.status).to.eq(200)
+        expect(res.body.booktitle).to.eq("Test title")
+        expect(res.body.author).to.eq("Test author")
+        expect(res.body.checkedout).to.eq(false)
     })
 
     it("PATCH /books/ Should not allow a non-admin user to update a book", async () => {
@@ -109,4 +121,5 @@ describe("book.route.js", () => {
 
         expect(res.status).to.gte(400).lt(500)
     })
+
 })
