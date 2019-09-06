@@ -31,6 +31,17 @@ describe("user.test.js", () => {
         expect(res.status).to.eq(401)
     })
 
+    it("GET /user/: 401 jwt middleware testing", async () => {
+        const token = "Not a valid token"
+
+        const res = await chai
+        .request(app)
+        .get(`/user/`)
+        .set("Authorizaon", `Bearer ${token}`)
+
+        expect(res.status).to.eq(401)
+    })
+
     it("GET /user/all/: Should display a list of users if admin", async () => {
         const user = await login("admin")
         const token = user.body.token

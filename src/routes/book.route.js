@@ -31,9 +31,7 @@ router.get("/all", async (req, res) => {
 // Create
 router.post("/", jwtMiddleware, async (req, res) => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).send({ errors: errors.array() });
-  }
+
   if(!req.user.admin ) return res.sendStatus(401);
 
   const { booktitle, author, checkedout } = req.body;
@@ -45,9 +43,9 @@ router.post("/", jwtMiddleware, async (req, res) => {
 });
 
 // read
-router.get("/", async (req, res) => {
+router.get("/:_id", async (req, res) => {
   const { _id } = req.params;
-  const book = await Book.findOne({ _id }).populate(["book", "user"]);
+  const book = await Book.findOne({ _id }).populate(["username"]);
 
   if(!book) return res.sendStatus(404);
 

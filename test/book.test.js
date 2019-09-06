@@ -1,6 +1,8 @@
 const chai = require("chai")
+const mongoose = require("mongoose")
 const { expect } = chai
 const dummyAPI = require("./dummy-api")
+const { ObjectId } = mongoose.Types
 
 const { app } = require("../src/server")
 const { signUp, login } = require("./auth.test")
@@ -57,6 +59,25 @@ describe("book.route.js", () => {
         expect(res.body).to.be.lengthOf(6)
     })
 
+    it("GET /books/:_id Should return a book with given id", async () => {
+        const book = await getBook()
+
+        const res = await chai
+        .request(app)
+        .get(`/books/${book._id}`)
+        
+        expect(res.status).to.eq(200)
+    })
+
+    it("GET /books/:_id 404 book not found", async () => {
+        const book = new ObjectId()
+        const res = await chai
+        .request(app)
+        .get(`/books/${book}`)
+
+        expect(res.status).to.eq(404)
+    })
+
     it("POST /books/ Should allow an admin user to add a book", async () => {
         const sign = await signUp("admin","password123","password123", true)
         const user = await login("admin")
@@ -107,6 +128,23 @@ describe("book.route.js", () => {
         expect(res.body.checkedout).to.eq(false)
     })
 
+    it("PATCH /books/:_id 404 Book not found", async () => {
+        const user = await login("admin")
+        const book = new ObjectId()
+
+        const res = await chai
+        .request(app)
+        .patch(`/books/${book}`)
+        .send({
+            booktitle: "Test title",
+            author: "Test author",
+            checkedout: false
+        })
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.eq(404)
+    })
+
     it("PATCH /books/:_id Should not allow a non-admin user to update a book", async () => {
         const user = await login()
         const book = await getBook()
@@ -134,6 +172,18 @@ describe("book.route.js", () => {
         .set("Authorization", `Bearer ${user.body.token}`)
 
         expect(res.status).to.eq(200)
+    })
+
+    it("DELETE /books/:_id 404 Book not found", async () => {
+        const user = await login("admin")
+        const book = new ObjectId()
+        
+        const res = await chai
+        .request(app)
+        .delete(`/books/${book}`)
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.eq(404)
     })
 
     it("DELETE /books/:_id Should not allow a non-admin user to update a book", async () => {
