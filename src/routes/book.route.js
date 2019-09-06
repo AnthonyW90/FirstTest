@@ -3,6 +3,7 @@ const { check, validationResult } = require("express-validator");
 
 const jwtMiddleware = require("../helpers/jwt-middleware");
 const Book = require("../models/Book");
+const User = require("../models/User")
 
 const router = AsyncRouter();
 
@@ -75,8 +76,9 @@ router.patch("/checkout/:_id", jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
   const book = await Book.findOne({ _id });
   if (!book) return res.sendStatus(404);
-  if (!req.user) return res.sendStatus(401);
 
+  const user = await User.findOne({_id: req.user._id}).populate("books")
+  console.log(user)
 
   book.booktitle = req.body.booktitle;
   book.author = req.body.author

@@ -22,8 +22,7 @@ const BookSchema = Schema({
     },
     user:{
         type: ObjectId,
-        ref: "user",
-
+        ref: "User",
     }
 })
 

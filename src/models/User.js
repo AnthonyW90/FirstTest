@@ -24,11 +24,11 @@ const userSchema = Schema({
 
     })
 
-userSchema.virtual("Book", {
+userSchema.virtual("books", {
     ref: "Book",
     localField: "_id",
     foreignField: "user",
-    justOne: false,
+    justOne: false
 });
 
 

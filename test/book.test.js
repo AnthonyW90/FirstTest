@@ -189,9 +189,22 @@ describe("book.route.js", () => {
             author: this.book.author
         })
         
-        console.log(res.body)
         expect(res.body.checkedout).to.eq(false)
         expect(res.status).to.eq(200)
+    })
+
+    it("PATCH /books/checkout/:_id 404 Book not found", async function () {
+        const book = new ObjectId()
+        const res = await chai
+        .request(app)
+        .patch(`/books/checkout/${book}`)
+        .set("Authorization", `Bearer ${this.user.body.token}`)
+        .send({
+            booktitle: this.book.booktitle,
+            author: this.book.author
+        })
+        
+        expect(res.status).to.eq(404)
     })
 
     it("DELETE /books/:_id Should allow an admin user to delete a book", async () => {
