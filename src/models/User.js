@@ -20,6 +20,9 @@ const userSchema = Schema({
         timestamps: true,
         toJSON: {
             virtuals: true
+        },
+        toObject: {
+            virtuals: true
         }
 
     })
@@ -28,7 +31,7 @@ userSchema.virtual("books", {
     ref: "Book",
     localField: "_id",
     foreignField: "user",
-    justOne: false
+    justOne: false,
 });
 
 

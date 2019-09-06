@@ -15,7 +15,8 @@ const addBook = async (title, author, checkedout, token) => {
     .send({
         booktitle: title,
         author: author,
-        checkedout: checkedout
+        checkedout: checkedout,
+        user: undefined
     })
 
     return res
@@ -26,6 +27,21 @@ const getBook = async () => {
         .request(app)
         .get("/books/")
     return res.body[0]
+}
+
+const checkoutBooks = async (user) => {
+    const book = await getBook()
+    
+    const res = await chai
+    .request(app)
+    .patch(`/books/checkout/${book._id}`)
+    .set("Authorization", `Bearer ${user.body.token}`)
+    .send({
+        booktitle: book.booktitle,
+        author: book.author
+    })
+
+    return res
 }
 
 
@@ -191,6 +207,17 @@ describe("book.route.js", () => {
         
         expect(res.body.checkedout).to.eq(false)
         expect(res.status).to.eq(200)
+    })
+
+    it("PATCH /books/checkout/:_id Should not allow a user to check out more than 3 books", async function () {
+        const user = await login()
+        
+        await checkoutBooks(user)
+        await checkoutBooks(user)
+        await checkoutBooks(user)
+        const res = await checkoutBooks(user)
+
+        expect(res.status).to.eq(404)
     })
 
     it("PATCH /books/checkout/:_id 404 Book not found", async function () {
