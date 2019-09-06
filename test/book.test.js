@@ -5,14 +5,15 @@ const dummyAPI = require("./dummy-api")
 const { app } = require("../src/server")
 const { signUp, login } = require("./auth.test")
 
-const addBook = async (title, author, token) => {
+const addBook = async (title, author, checkedout, token) => {
     const res = await chai
     .request(app)
     .post("/books/")
     .set("Authorization", `Bearer ${token}`)
     .send({
         booktitle: title,
-        author: author
+        author: author,
+        checkedout: checkedout
     })
 
     return res
@@ -26,7 +27,7 @@ describe("book.route.js", () => {
         const token = user.body.token
 
         for (book in dummyAPI) {
-            await addBook(dummyAPI[book].title, dummyAPI[book].author, token)
+            await addBook(dummyAPI[book].title, dummyAPI[book].author, dummyAPI[book].checkedout, token)
         }
 
     })
@@ -61,7 +62,6 @@ describe("book.route.js", () => {
             author: "Some old guy"
         })
         .set("Authorization", `Bearer ${user.body.token}`)
-        console.log(sign.body.admin)
         expect(res.status).to.eq(200)
     })
 
