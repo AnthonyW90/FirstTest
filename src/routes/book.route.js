@@ -27,12 +27,6 @@ router.post("/", jwtMiddleware, async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(422).send({ errors: errors.array() });
   }
-<<<<<<< HEAD
-console.log(req.user)
-console.log(req.user.admin)
-
-=======
->>>>>>> 82e32d50c7e9d31cd481f3acd535bc80a123350e
   if(!req.user.admin ) return res.sendStatus(401);
 
   const { booktitle, author } = req.body;

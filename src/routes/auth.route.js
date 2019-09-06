@@ -72,8 +72,4 @@ controller.post('/login', [...loginValidators], async (req, res) => {
   res.send({token});
 });
 
-controller.get('/profile', jwtMiddleware, (req, res) => {
-  res.send(sanitizeUser(req.user));
-});
-
 module.exports =  controller;

@@ -13,61 +13,43 @@ const createValidators = [
 ];
 const updateValidators = [
   check("username").exists(),
- 
+  check("password").exists()
 ];
 
 // List
-router.get("/", jwtMiddleware,  async (req, res) => {
-  const user = await User.findone({_id: req.user._id}).populate("Book");
-
+router.get("/all", jwtMiddleware,  async (req, res) => {
+  if(!req.user.admin) return res.sendStatus(404)
+  
+  const user = await User.find()
   res.send(user);
 });
 
-// Create
-router.post("/", [...createValidators, jwtMiddleware], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).send({ errors: errors.array() });
-  }
-
-  const user = new Post(req.body);
-  await user.save();
-
-  res.status(201).send(user);
-});
-
 // Read
-router.get("/", async (req, res) => {
-  const { _id } = req.params;
-  const user = await Post.findOne({ _id }).populate(["user", "user"]);
-
-  if(!user) return res.sendStatus(404);
-
+router.get("/", jwtMiddleware, async (req, res) => {
+  const user = await User.findOne({_id: req.user._id}).populate("Book");
   res.send(user);
 });
 
 // Update 
-router.patch("/", [...updateValidators, jwtMiddleware], async (req, res) => {
+router.patch("/:_id", [...updateValidators, jwtMiddleware], async (req, res) => {
   const { _id } = req.params;
   const user = await User.findOne({ _id });
-
-  if(!user) return res.sendStatus(404);
-  if(req.user._id !== user.user._id) return res.sendStatus(401);  
-
+  
+  if(!req.user.admin || !user) return res.sendStatus(404);  
+ 
   user.username = req.body.username;
-  user.body = req.body.username;
-  await post.save();
+  user.password = req.body.password;
+  await user.save();
 
   res.send(user);
 });
 
 // Delete
-router.delete("/", jwtMiddleware, async (req, res) => {
+router.delete("/:_id", jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
   const user = await User.findOne({ _id });
 
-  if(!post) return res.sendStatus(404);
-  if(req.user._id !== user.user._id) return res.sendStatus(401);
+  if(!req.user.admin || !user) return res.sendStatus(404);
 
   await user.remove();
 

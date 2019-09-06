@@ -71,14 +71,20 @@ describe("auth.route.js", () => {
         expect(user.username).to.eq("username")
     })
     
-    it("POST /auth/login: 422 invalid username", async () => {
-        const response = await login("lkj")
+    it("POST /auth/login: 403 invalid username", async () => {
+        const response = await login("lkjlkj")
 
-        expect(response.status).to.eq(422)
+        expect(response.status).to.eq(403)
     })
 
-    it("POST /auth/login: 422 invalid password", async () => {
-        const response = await login(password = "lkj")
+    it("POST /auth/login: 403 invalid password", async () => {
+        const response = await login("username", "lkjlkjlk")
+
+        expect(response.status).to.eq(403)
+    })
+
+    it("POST /auth/login: 422 if username or password is incorrect length", async () => {
+        const response = await login("lkj")
 
         expect(response.status).to.eq(422)
     })
