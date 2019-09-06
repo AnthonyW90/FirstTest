@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
       available.push(books[book])
     }
   }
+
   res.send(available);
 });
 
@@ -61,7 +62,7 @@ router.patch("/",  jwtMiddleware, async (req, res) => {
   if(!book) return res.sendStatus(404);
   if(!req.user.admin ) return res.sendStatus(401);
 
-
+  console.log(book.name)
   book.name = req.body.name;
   await book.save();
 
