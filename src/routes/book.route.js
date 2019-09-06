@@ -9,12 +9,6 @@ const router = AsyncRouter();
 
 // List just the / lists unchecked books
 router.get("/", async (req, res) => {
-<<<<<<< HEAD
-  const book = await Book.find();
-  
-  
-  res.send(book);
-=======
   const books = await Book.find();
   const available = []
 
@@ -23,9 +17,7 @@ router.get("/", async (req, res) => {
       available.push(books[book])
     }
   }
-  console.log(available)
   res.send(available);
->>>>>>> ca5ae662cba9b6925a0492964015c7190f3c4d39
 });
 
 // List all books 
