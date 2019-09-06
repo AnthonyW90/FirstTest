@@ -74,7 +74,6 @@ router.patch("/:_id", jwtMiddleware, async (req, res) => {
 router.patch("/checkout/:_id", jwtMiddleware, async (req, res) => {
   const { _id } = req.params;
   const book = await Book.findOne({ _id });
-
   if (!book) return res.sendStatus(404);
   if (!req.user) return res.sendStatus(401);
 
@@ -85,7 +84,7 @@ router.patch("/checkout/:_id", jwtMiddleware, async (req, res) => {
     book.user = req.user
     book.checkedout = !book.checkedout
   } else {
-    book.user = ""
+    book.user = undefined
     book.checkedout = !book.checkedout
   }
 

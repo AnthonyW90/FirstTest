@@ -162,6 +162,38 @@ describe("book.route.js", () => {
         expect(res.status).to.eq(401)
     })
 
+    it("PATCH /books/checkout/:_id Should allow a user to check out a book", async function () {
+        this.user = await login()
+        this.book = await getBook()
+
+        const res = await chai
+        .request(app)
+        .patch(`/books/checkout/${this.book._id}`)
+        .set("Authorization", `Bearer ${this.user.body.token}`)
+        .send({
+            booktitle: this.book.booktitle,
+            author: this.book.author
+        })
+        
+        expect(res.body.checkedout).to.eq(true)
+        expect(res.status).to.eq(200)
+    })
+
+    it("PATCH /books/checkout/:_id Should allow a user to return a book", async function () {
+        const res = await chai
+        .request(app)
+        .patch(`/books/checkout/${this.book._id}`)
+        .set("Authorization", `Bearer ${this.user.body.token}`)
+        .send({
+            booktitle: this.book.booktitle,
+            author: this.book.author
+        })
+        
+        console.log(res.body)
+        expect(res.body.checkedout).to.eq(false)
+        expect(res.status).to.eq(200)
+    })
+
     it("DELETE /books/:_id Should allow an admin user to delete a book", async () => {
         const user = await login("admin")
         const book = await getBook()
