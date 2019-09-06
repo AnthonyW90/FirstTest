@@ -107,19 +107,47 @@ describe("book.route.js", () => {
         expect(res.body.checkedout).to.eq(false)
     })
 
-    it("PATCH /books/ Should not allow a non-admin user to update a book", async () => {
+    it("PATCH /books/:_id Should not allow a non-admin user to update a book", async () => {
         const user = await login()
+        const book = await getBook()
         
         const res = await chai
         .request(app)
-        .patch("/books/")
+        .patch(`/books/${book._id}`)
         .send({
             booktitle: "Test title",
-            author: "Test author"
+            author: "Test author",
+            checkedout: false
         })
         .set("Authorization", `Bearer ${user.body.token}`)
 
-        expect(res.status).to.gte(400).lt(500)
+        expect(res.status).to.eq(401)
     })
+
+    it("DELETE /books/:_id Should not allow an admin user to delete a book", async () => {
+        const user = await login("admin")
+        const book = await getBook()
+        
+        const res = await chai
+        .request(app)
+        .delete(`/books/${book._id}`)
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.eq(200)
+    })
+
+    it("DELETE /books/:_id Should not allow a non-admin user to update a book", async () => {
+        const user = await login()
+        const book = await getBook()
+        
+        const res = await chai
+        .request(app)
+        .delete(`/books/${book._id}`)
+        .set("Authorization", `Bearer ${user.body.token}`)
+
+        expect(res.status).to.eq(401)
+    })
+
+    
 
 })
