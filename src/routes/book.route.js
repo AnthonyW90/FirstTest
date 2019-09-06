@@ -62,15 +62,10 @@ router.patch("/:_id",  jwtMiddleware, async (req, res) => {
   if(!book) return res.sendStatus(404);
   if(!req.user.admin ) return res.sendStatus(401);
 
-<<<<<<< HEAD
-  console.log(book.name)
-  book.name = req.body.name;
-=======
 
   book.booktitle = req.body.booktitle;
   book.author = req.body.author
   book.checkedout = req.body.checkedout
->>>>>>> 3d6dffbd99d72d5013f48a0979499ca34c5c4ff1
   await book.save();
 
   res.send(book);
