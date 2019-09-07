@@ -43,8 +43,6 @@ const startServer = async (port = 8000, hostname = "localhost") => {
   });
 }
 
-
-
 module.exports = {
   connectDatabase,
   startServer,
