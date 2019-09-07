@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon ./src/server.js --watch ./src",
     "test": "nyc --reporter=html --reporter=text mocha ./test/**/*.test.js --require ./test/test-helper.js --exit",
-    "test:watch": "nodemon --watch ./test --exec yarn test"
+    "test:watch": "nodemon --watch ./test --exec yarn test",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,9 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.0.6",
     "mocha": "^6.2.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "nyc": "^14.1.1"
   }
 }
