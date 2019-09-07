@@ -80,7 +80,6 @@ router.patch("/checkout/:_id", jwtMiddleware, async (req, res) => {
   const user = await User.findOne({_id: req.user._id}).populate("books")
 
   if(user.books.length >= 2) return res.sendStatus(404)
-  console.log(user.books.length)
 
   book.booktitle = req.body.booktitle;
   book.author = req.body.author
